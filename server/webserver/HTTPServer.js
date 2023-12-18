@@ -1,10 +1,10 @@
-import http from 'http';
+import http from "http";
 
-import url from 'url';
+import url from "url";
 
-import authenticateUser from '../utils/authenticateUser';
-import validateInput from '../utils/validateInput';
-import Request from './Request';
+import authenticateUser from "../utils/authenticateUser";
+import validateInput from "../utils/validateInput";
+import Request from "./Request";
 
 class HTTPServer {
   constructor(config) {
@@ -29,7 +29,7 @@ class HTTPServer {
       await authenticateUser(request, queryData);
     } catch (error) {
       request.setData(queryData);
-      request.error('unauthorized');
+      request.error("unauthorized");
       return;
     }
 
@@ -40,7 +40,7 @@ class HTTPServer {
     if (error) {
       const timestamp = `[${new Date().toISOString()}]`;
       console.error(timestamp, error);
-      request.fail('invalid input');
+      request.fail("invalid input");
       return;
     }
 

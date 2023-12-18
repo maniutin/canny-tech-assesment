@@ -3,22 +3,22 @@ const validateInput = {
     for (var key in format) {
       var entry = format[key];
       var validator;
-      if (typeof entry === 'object') {
+      if (typeof entry === "object") {
         if (entry.nullable) {
           if (data[key] === undefined || data[key] === null) {
             continue;
           }
         }
-        if (typeof entry.default !== 'undefined') {
-          if (typeof data[key] === 'undefined') {
+        if (typeof entry.default !== "undefined") {
+          if (typeof data[key] === "undefined") {
             data[key] = entry.default;
           }
         }
         validator = entry.validator;
-      } else if (typeof entry === 'function') {
+      } else if (typeof entry === "function") {
         validator = entry;
       } else {
-        return 'malformed validation entry';
+        return "malformed validation entry";
       }
 
       if (!validator(data[key])) {
@@ -29,7 +29,7 @@ const validateInput = {
   },
 
   email: function (email) {
-    if (typeof email !== 'string') {
+    if (typeof email !== "string") {
       return false;
     }
 
@@ -43,7 +43,7 @@ const validateInput = {
   },
 
   integer: (value) => {
-    if (typeof value !== 'number' && typeof value !== 'string') {
+    if (typeof value !== "number" && typeof value !== "string") {
       return false;
     }
     var n = Number(value);

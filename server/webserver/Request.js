@@ -1,4 +1,4 @@
-import getPath from '../utils/getPath';
+import getPath from "../utils/getPath";
 
 class Request {
   constructor(queryData, request, response) {
@@ -9,7 +9,7 @@ class Request {
 
   error(error) {
     const data = JSON.stringify({
-      error: 'server error',
+      error: "server error",
     });
     this._respond(data, 500);
   }
@@ -19,7 +19,7 @@ class Request {
       error: message,
     };
     const data = JSON.stringify(responseData);
-    this._respond(data, 400, { 'Content-Type': 'text/plain' });
+    this._respond(data, 400, { "Content-Type": "text/plain" });
   }
 
   getData() {
@@ -36,26 +36,26 @@ class Request {
 
   respond(text, status) {
     status = status || 200;
-    this._respond(text, status, { 'Content-Type': 'text/plain' });
+    this._respond(text, status, { "Content-Type": "text/plain" });
   }
 
   respondJSON(json, status) {
     status = status || 200;
-    this._respond(json, status, { 'Content-Type': 'application/json' });
+    this._respond(json, status, { "Content-Type": "application/json" });
   }
 
   _respond(data, status, additionalHeaders) {
     var headers = Object.assign(
       {
-        'Access-Control-Allow-Origin': '*',
-        'Content-Length': Buffer.byteLength(data, 'utf8'),
-        'Content-Type': 'text/plain',
+        "Access-Control-Allow-Origin": "*",
+        "Content-Length": Buffer.byteLength(data, "utf8"),
+        "Content-Type": "text/plain",
       },
       additionalHeaders
     );
 
     this._response.writeHead(status, headers);
-    this._response.end(data, 'utf8');
+    this._response.end(data, "utf8");
   }
 }
 
