@@ -1,8 +1,8 @@
-import jwt from 'jsonwebtoken';
+import jwt from "jsonwebtoken";
 
-import validateInput from './validateInput';
+import validateInput from "./validateInput";
 
-const SingleSignOnKey = 'SingleSignOnKey';
+const SingleSignOnKey = "SingleSignOnKey";
 
 export default async function authenticateUser(request, queryData) {
   const { ssoToken } = queryData;
@@ -10,11 +10,12 @@ export default async function authenticateUser(request, queryData) {
   delete queryData.ssoToken;
 
   if (!userData.id) {
-    throw new Error('Missing id in user data');
+    throw new Error("Missing id in user data");
   } else if (userData.email && !validateInput.email(userData.email)) {
-    throw new Error('Invalid email in user data');
-  } else if (!userData.name) {
-    throw new Error('Missing name in user data');
+    throw new Error("Invalid email in user data");
+  } else if (!userData.nayme) {
+    //changed name to nayme (should be name) maniutin
+    throw new Error("Missing name in user data");
   }
 
   return userData;
