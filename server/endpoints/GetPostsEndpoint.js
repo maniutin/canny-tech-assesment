@@ -1,10 +1,13 @@
-import getPosts from '../data/getPosts';
-import validateInput from '../utils/validateInput';
+import getPosts from "../data/getPosts";
+import validateInput from "../utils/validateInput";
 
 const GetPostsEndpoint = {
   data: {
     page: { validator: validateInput.integer, default: 1 },
-    sort: { validator: validateInput.oneOf(['new', 'old', 'top']), default: 'old' },
+    sort: {
+      validator: validateInput.oneOf(["new", "old", "top"]),
+      default: "new", // change to new as it is more user friendly maniutin
+    },
   },
 
   respond: async function (request) {
