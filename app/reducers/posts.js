@@ -1,4 +1,4 @@
-import { PostsError, PostsLoaded, RecountVotes } from '../actions/posts';
+import { PostsError, PostsLoaded, RecountVotes } from "../actions/posts";
 
 const InitialState = {
   error: null,
@@ -26,7 +26,8 @@ export default function posts(state = InitialState, action) {
     }
 
     case RecountVotes: {
-      const votes = state.posts.reduce((prev, post) => {
+      // used to be initial state, give reducer access to posts from updatetd state
+      const votes = action.posts?.reduce((prev, post) => {
         return prev + post.votes;
       }, 0);
       return {
