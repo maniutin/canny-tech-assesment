@@ -1,25 +1,25 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 
-import { fetchPosts, recountVotes } from '../actions/posts';
-import { changeSort } from '../actions/sort';
+import { fetchPosts, recountVotes } from "../actions/posts";
+import { changeSort } from "../actions/sort";
 
-import './css/_PostSort.css';
+import "./css/_PostSort.css";
 
 const Options = [
   {
-    name: 'old',
-    render: 'Old',
+    name: "old",
+    render: "Old",
   },
   {
-    name: 'top',
-    render: 'Top',
+    name: "top",
+    render: "Top",
   },
   {
-    name: 'new',
-    render: 'New',
+    name: "new",
+    render: "New",
   },
 ];
 
@@ -41,10 +41,12 @@ export default class PostSort extends Component {
 
   state = {
     menuOpen: false,
+    sort: "new", // add deafult value to match backend maniutin
   };
 
   onChangeSort = (sort) => {
-    this.setState({ menuOpen: false }, () => {
+    this.setState({ menuOpen: false, sort }, () => {
+      // add sort to setState
       this.props.changeSort(sort);
     });
   };
@@ -67,9 +69,13 @@ export default class PostSort extends Component {
       sort: { sort },
     } = this.props;
     const sorts = Options.map((option) => {
-      const className = 'option' + (option.name === sort ? ' selected' : '');
+      const className = "option" + (option.name === sort ? " selected" : "");
       return (
-        <div className={className} key={option.name} onClick={() => this.onChangeSort(option.name)}>
+        <div
+          className={className}
+          key={option.name}
+          onClick={() => this.onChangeSort(option.name)}
+        >
           <div className="dot" />
           {option.render}
         </div>
@@ -87,10 +93,7 @@ export default class PostSort extends Component {
   };
 
   render() {
-    const {
-      sort: { sort },
-    } = this.props;
-    const option = Options.find((option) => option.name === sort);
+    const option = Options.find((option) => option.name === this.state.sort); // get sort from state instead of props maniutin
     return (
       <div className="postSort">
         <div className="text">Showing</div>
