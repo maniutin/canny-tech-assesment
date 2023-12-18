@@ -1,43 +1,29 @@
 export default function sortBy(array, key, descending = false) {
-  const length = array.length;
-  if (length === 1) {
-    return array;
-  } else if (length === 2) {
-    const aValue = array[0][key];
-    const bValue = array[1][key];
-    if (bValue > aValue) {
-      return array;
+  function mergeSort(arr) {
+    if (arr.length <= 1) {
+      return arr;
     }
-    return [array[0], array[1]];
+    const mid = Math.floor(arr.length / 2);
+    const left = arr.slice(0, mid);
+    const right = arr.slice(mid);
+    return merge(mergeSort(left), mergeSort(right));
   }
 
-  const mid = Math.floor(length / 2);
-  const firstHalf = array.slice(0, mid);
-  const secondHalf = array.slice(mid, length);
+  //function to merge the left and right elements
+  function merge(left, right) {
+    const result = [];
 
-  const arrayOne = sortBy(firstHalf, key);
-  const arrayTwo = sortBy(secondHalf, key);
-
-  const merged = [];
-  while (arrayOne.length || arrayTwo.length) {
-    if (!arrayOne.length) {
-      merged.push(arrayTwo.shift());
-      continue;
+    while (left.length && right.length) {
+      if (left[0][key] <= right[0][key]) {
+        result.push(left.shift());
+      } else {
+        result.push(right.shift());
+      }
     }
 
-    if (!arrayTwo.length) {
-      merged.push(arrayOne.shift());
-      continue;
-    }
-
-    const valueOne = arrayOne[0][key];
-    const valueTwo = arrayTwo[0][key];
-    if (valueOne <= valueTwo) {
-      merged.push(arrayOne.shift());
-    } else if (valueTwo < valueOne) {
-      merged.push(arrayTwo.shift());
-    }
+    return [...result, ...left, ...right];
   }
-
-  return descending ? merged.reverse() : merged;
+  return descending ? mergeSort(array).reverse() : mergeSort(array);
 }
+
+// og code diffictult to follow, .reverse() adds another loop maniutin
